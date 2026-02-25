@@ -39,7 +39,7 @@ const SchoolRecommendations: React.FC<SchoolRecommendationsProps> = ({ notes }) 
 
   if (!notes.moyenne) {
     return (
-      <div className="bg-white rounded-xl shadow-lg p-6">
+      <div className="bg-gray-50/80 rounded-xl shadow-lg p-6">
         <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
           <Trophy className="w-5 h-5 mr-2 text-[#cda86b]" />
           Établissements Recommandés
@@ -57,7 +57,7 @@ const SchoolRecommendations: React.FC<SchoolRecommendationsProps> = ({ notes }) 
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6">
+    <div className="bg-gray-50/80 rounded-xl shadow-lg p-6">
       <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
         <Trophy className="w-5 h-5 mr-2 text-[#cda86b]" />
         Établissements Recommandés

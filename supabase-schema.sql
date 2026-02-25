@@ -1,13 +1,18 @@
 -- Create ENUM type for class levels
 CREATE TYPE class_level_enum AS ENUM ('5ème', '6ème', 'Bac', 'Bac+');
 
+-- Create ENUM type for bac filiere (stream)
+CREATE TYPE bac_filiere_enum AS ENUM ('Sciences Mathématiques', 'Sciences Expérimentales', 'Sciences Économiques', 'Lettres', 'Sciences et Technologies', 'Autre');
+
 -- Create profiles table
 CREATE TABLE profiles (
   id UUID REFERENCES auth.users ON DELETE CASCADE PRIMARY KEY,
   first_name TEXT,
   last_name TEXT,
   city TEXT,
+  phone TEXT,
   class_level class_level_enum,
+  bac_filiere bac_filiere_enum,
   plan TEXT DEFAULT 'free',
   plan_expiry TIMESTAMP WITH TIME ZONE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),

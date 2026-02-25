@@ -179,4 +179,68 @@
       transform: translateY(-40px) scale(0.95);
     }
   }
+
+  /* Toast notification animation */
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Logo Carousel Animations */
+  .logo-carousel-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .logo-carousel-track {
+    display: flex;
+    gap: 2rem;
+    animation: scrollLogos 30s linear infinite;
+    width: max-content;
+  }
+
+  .logo-carousel-item {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+
+  .logo-carousel-item:hover {
+    opacity: 1;
+  }
+
+  .logo-carousel-img {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+    background: transparent;
+    transition: all 0.3s ease;
+  }
+
+  .logo-carousel-item:hover .logo-carousel-img {
+    transform: scale(1.1);
+  }
+
+  @keyframes scrollLogos {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
 }

@@ -3,6 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import univ1Image from '../images/univ1.jpg';
 import univ2Image from '../images/univ2.jpg';
+import heroImage from '../images/hero.png';
+import logo1 from '../logos/logo1.png';
+import logo2 from '../logos/logo2.png';
+import logo3 from '../logos/logo3.png';
+import logo4 from '../logos/logo4.png';
+import logo5 from '../logos/logo5.png';
+import logo6 from '../logos/logo6.jpg';
+import logo7 from '../logos/logo7.png';
 import { 
   MapPin, 
   Search, 
@@ -243,7 +251,7 @@ const LandingPage = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-16 pb-20 overflow-hidden">
+      <section className="pt-16 pb-2 overflow-hidden">
         <div className="relative">
           {/* Background gradient */}
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-teal-50"></div>
@@ -254,7 +262,7 @@ const LandingPage = () => {
             <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-teal-400/20 to-blue-400/20 rounded-full blur-3xl"></div>
           </div>
 
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               {/* Left column - Content */}
               <div className="space-y-8">
@@ -288,13 +296,76 @@ const LandingPage = () => {
                   </button>
                 </div>
               </div>
+
+              {/* Right column - Hero Image */}
+              <div className="hidden lg:flex items-center justify-center relative">
+                {/* Hero Image */}
+                <img 
+                  src={heroImage} 
+                  alt="Afaqi Educational Platform" 
+                  className="w-auto h-auto max-w-[200px] object-contain relative z-10"
+                />
+                
+                {/* Logo Carousel Overlay */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+                  <div className="logo-carousel-container">
+                    <div className="logo-carousel-track">
+                      {/* First set of logos */}
+                      <div className="logo-carousel-item">
+                        <img src={logo1} alt="University Logo" className="logo-carousel-img" />
+                      </div>
+                      <div className="logo-carousel-item">
+                        <img src={logo2} alt="University Logo" className="logo-carousel-img" />
+                      </div>
+                      <div className="logo-carousel-item">
+                        <img src={logo3} alt="University Logo" className="logo-carousel-img" />
+                      </div>
+                      <div className="logo-carousel-item">
+                        <img src={logo4} alt="University Logo" className="logo-carousel-img" />
+                      </div>
+                      <div className="logo-carousel-item">
+                        <img src={logo5} alt="University Logo" className="logo-carousel-img" />
+                      </div>
+                      <div className="logo-carousel-item">
+                        <img src={logo6} alt="University Logo" className="logo-carousel-img" />
+                      </div>
+                      <div className="logo-carousel-item">
+                        <img src={logo7} alt="University Logo" className="logo-carousel-img" />
+                      </div>
+                      
+                      {/* Duplicate set for seamless loop */}
+                      <div className="logo-carousel-item">
+                        <img src={logo1} alt="University Logo" className="logo-carousel-img" />
+                      </div>
+                      <div className="logo-carousel-item">
+                        <img src={logo2} alt="University Logo" className="logo-carousel-img" />
+                      </div>
+                      <div className="logo-carousel-item">
+                        <img src={logo3} alt="University Logo" className="logo-carousel-img" />
+                      </div>
+                      <div className="logo-carousel-item">
+                        <img src={logo4} alt="University Logo" className="logo-carousel-img" />
+                      </div>
+                      <div className="logo-carousel-item">
+                        <img src={logo5} alt="University Logo" className="logo-carousel-img" />
+                      </div>
+                      <div className="logo-carousel-item">
+                        <img src={logo6} alt="University Logo" className="logo-carousel-img" />
+                      </div>
+                      <div className="logo-carousel-item">
+                        <img src={logo7} alt="University Logo" className="logo-carousel-img" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Statistics Section */}
-      <section className="-mt-10 pt-0 pb-16 bg-white">
+      <section className="mt-0 pt-8 pb-16 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
             <div className="space-y-2">

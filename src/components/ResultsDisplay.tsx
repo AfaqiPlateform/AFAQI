@@ -33,7 +33,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ notes }) => {
 
   return (
     <div className="h-full">
-      <div className="bg-white rounded-xl shadow-lg h-full flex flex-col">
+      <div className="bg-gray-50/80 rounded-xl shadow-lg h-full flex flex-col">
         {/* Header */}
         <div className="p-6 border-b border-gray-100">
           <h3 className="text-lg font-semibold text-gray-900 flex items-center">

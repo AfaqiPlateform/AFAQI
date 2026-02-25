@@ -48,7 +48,7 @@ const SimulatorCard: React.FC<SimulatorCardProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+    <div className="bg-gray-50/80 rounded-xl shadow-lg overflow-hidden">
       <div className="p-6">
         <div className="space-y-6">
           {/* Mode objectif à atteindre uniquement */}
@@ -140,16 +140,12 @@ const InputField: React.FC<InputFieldProps> = ({
 
   return (
     <div className="space-y-3">
-      {/* Badge centered at top */}
-      <div className="text-center">
-        <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${badgeColors[color as keyof typeof badgeColors]}`}>
+      {/* Badge and Label on same line */}
+      <div className="flex items-center justify-center gap-3">
+        <span className={`px-3 py-1 rounded-full text-xs font-medium ${badgeColors[color as keyof typeof badgeColors]}`}>
           {weight}
         </span>
-      </div>
-      
-      {/* Label */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700 text-center mb-3">
+        <label className="text-sm font-medium text-gray-700">
           {label}
           {optional && <span className="text-gray-400 ml-1">(optionnel)</span>}
         </label>

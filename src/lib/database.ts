@@ -72,14 +72,20 @@ export const profileService = {
   /**
    * Update the current user's profile
    */
-  async updateProfile(profileData: Omit<ProfileUpdate, 'id'>): Promise<Profile | null> {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return null;
+  async updateProfile(profileData: Omit<ProfileUpdate, 'id'>, userId?: string): Promise<Profile | null> {
+    // Use provided userId or get from auth
+    let targetUserId = userId;
+    
+    if (!targetUserId) {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return null;
+      targetUserId = user.id;
+    }
 
     const { data, error } = await supabase
       .from('profiles')
       .update(profileData)
-      .eq('id', user.id)
+      .eq('id', targetUserId)
       .select()
       .single();
 

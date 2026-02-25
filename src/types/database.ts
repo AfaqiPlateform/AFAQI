@@ -1,5 +1,6 @@
 // Database types for Supabase tables
 export type ClassLevel = '5ème' | '6ème' | 'Bac' | 'Bac+';
+export type BacFiliere = 'Sciences Mathématiques' | 'Sciences Expérimentales' | 'Sciences Économiques' | 'Lettres' | 'Sciences et Technologies' | 'Autre';
 export type PlanType = 'free' | 'premium' | 'enterprise';
 
 export interface Profile {
@@ -7,7 +8,9 @@ export interface Profile {
   first_name?: string | null;
   last_name?: string | null;
   city?: string | null;
+  phone?: string | null;
   class_level?: ClassLevel | null;
+  bac_filiere?: BacFiliere | null;
   plan: string;
   plan_expiry?: string | null;
   created_at: string;
@@ -33,7 +36,9 @@ export interface ProfileInsert {
   first_name?: string | null;
   last_name?: string | null;
   city?: string | null;
+  phone?: string | null;
   class_level?: ClassLevel | null;
+  bac_filiere?: BacFiliere | null;
   plan?: string;
   plan_expiry?: string | null;
 }
@@ -55,7 +60,9 @@ export interface ProfileUpdate {
   first_name?: string | null;
   last_name?: string | null;
   city?: string | null;
+  phone?: string | null;
   class_level?: ClassLevel | null;
+  bac_filiere?: BacFiliere | null;
   plan?: string;
   plan_expiry?: string | null;
 }

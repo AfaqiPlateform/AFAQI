@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import type { ClassLevel } from '../types/database';
+import type { ClassLevel, BacFiliere } from '../types/database';
 import PlatformHeader from '../components/PlatformHeader';
 import { 
   User, 
@@ -11,7 +11,11 @@ import {
   Edit2,
   Save,
   X,
-  LogOut
+  LogOut,
+  CheckCircle,
+  AlertCircle,
+  Phone,
+  BookOpen
 } from 'lucide-react';
 
 export default function Profile() {
@@ -19,11 +23,14 @@ export default function Profile() {
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
   const [editedProfile, setEditedProfile] = useState({
     first_name: profile?.first_name || '',
     last_name: profile?.last_name || '',
     city: profile?.city || '',
-    class_level: profile?.class_level || ''
+    phone: profile?.phone || '',
+    class_level: profile?.class_level || '',
+    bac_filiere: profile?.bac_filiere || ''
   });
 
   // Update editedProfile when profile changes
@@ -33,9 +40,21 @@ export default function Profile() {
       first_name: profile?.first_name || '',
       last_name: profile?.last_name || '',
       city: profile?.city || '',
-      class_level: profile?.class_level || ''
+      phone: profile?.phone || '',
+      class_level: profile?.class_level || '',
+      bac_filiere: profile?.bac_filiere || ''
     });
   }, [profile]);
+
+  // Auto-hide toast after 5 seconds
+  useEffect(() => {
+    if (toast) {
+      const timer = setTimeout(() => {
+        setToast(null);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [toast]);
 
   const handleSave = async () => {
     setIsSaving(true);
@@ -43,20 +62,21 @@ export default function Profile() {
       console.log('Saving profile:', editedProfile);
       const success = await updateProfile({
         ...editedProfile,
-        class_level: editedProfile.class_level as ClassLevel || null
+        class_level: editedProfile.class_level as ClassLevel || null,
+        bac_filiere: editedProfile.bac_filiere as BacFiliere || null
       });
       
       if (success) {
         console.log('Profile updated successfully');
         setIsEditing(false);
-        // Show success message (you could add a toast notification here)
+        setToast({ type: 'success', message: 'Profil mis à jour avec succès!' });
       } else {
         console.error('Failed to update profile');
-        // Show error message (you could add error handling here)
+        setToast({ type: 'error', message: 'Erreur lors de la mise à jour du profil. Veuillez réessayer.' });
       }
     } catch (error) {
       console.error('Error updating profile:', error);
-      // Show error message
+      setToast({ type: 'error', message: 'Une erreur inattendue s\'est produite.' });
     } finally {
       setIsSaving(false);
     }
@@ -67,7 +87,9 @@ export default function Profile() {
       first_name: profile?.first_name || '',
       last_name: profile?.last_name || '',
       city: profile?.city || '',
-      class_level: profile?.class_level || ''
+      phone: profile?.phone || '',
+      class_level: profile?.class_level || '',
+      bac_filiere: profile?.bac_filiere || ''
     });
     setIsEditing(false);
   };
@@ -178,6 +200,19 @@ export default function Profile() {
                   
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Téléphone
+                    </label>
+                    <input
+                      type="tel"
+                      value={editedProfile.phone}
+                      onChange={(e) => setEditedProfile(prev => ({ ...prev, phone: e.target.value }))}
+                      className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#004235] focus:border-[#004235]"
+                      placeholder="06 XX XX XX XX"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
                       Niveau d'études
                     </label>
                     <select
@@ -190,6 +225,25 @@ export default function Profile() {
                       <option value="6ème">6ème</option>
                       <option value="Bac">Baccalauréat</option>
                       <option value="Bac+">Bac+</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Filière du Bac
+                    </label>
+                    <select
+                      value={editedProfile.bac_filiere}
+                      onChange={(e) => setEditedProfile(prev => ({ ...prev, bac_filiere: e.target.value }))}
+                      className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#004235] focus:border-[#004235]"
+                    >
+                      <option value="">Sélectionnez votre filière</option>
+                      <option value="Sciences Mathématiques">Sciences Mathématiques</option>
+                      <option value="Sciences Expérimentales">Sciences Expérimentales</option>
+                      <option value="Sciences Économiques">Sciences Économiques</option>
+                      <option value="Lettres">Lettres</option>
+                      <option value="Sciences et Technologies">Sciences et Technologies</option>
+                      <option value="Autre">Autre</option>
                     </select>
                   </div>
                 </div>
@@ -263,6 +317,14 @@ export default function Profile() {
                         <p className="font-medium">{profile?.city || 'Non renseigné'}</p>
                       </div>
                     </div>
+
+                    <div className="flex items-center gap-3">
+                      <Phone className="w-5 h-5 text-[#004235]" />
+                      <div>
+                        <p className="text-sm text-gray-500">Téléphone</p>
+                        <p className="font-medium">{profile?.phone || 'Non renseigné'}</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -278,6 +340,14 @@ export default function Profile() {
                       <div>
                         <p className="text-sm text-gray-500">Niveau d'études</p>
                         <p className="font-medium">{profile?.class_level || 'Non renseigné'}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                      <BookOpen className="w-5 h-5 text-[#cda86b]" />
+                      <div>
+                        <p className="text-sm text-gray-500">Filière du Bac</p>
+                        <p className="font-medium">{profile?.bac_filiere || 'Non renseigné'}</p>
                       </div>
                     </div>
                   </div>
@@ -317,6 +387,30 @@ export default function Profile() {
           </button>
         </div>
       </div>
+
+      {/* Toast Notification */}
+      {toast && (
+        <div className="fixed bottom-4 right-4 z-50 animate-slide-up">
+          <div className={`flex items-center gap-3 px-6 py-4 rounded-lg shadow-lg ${
+            toast.type === 'success' 
+              ? 'bg-green-500 text-white' 
+              : 'bg-red-500 text-white'
+          }`}>
+            {toast.type === 'success' ? (
+              <CheckCircle className="w-5 h-5" />
+            ) : (
+              <AlertCircle className="w-5 h-5" />
+            )}
+            <span className="font-medium">{toast.message}</span>
+            <button
+              onClick={() => setToast(null)}
+              className="ml-2 hover:opacity-80 transition-opacity"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

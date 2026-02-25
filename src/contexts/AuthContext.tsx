@@ -58,16 +58,21 @@ export function AuthProvider({ children }: AuthProviderProps) {
   };
 
   const updateProfile = async (profileData: Partial<Profile>): Promise<boolean> => {
-    if (!user?.id) return false;
+    if (!user?.id) {
+      console.error('No user ID available for profile update');
+      return false;
+    }
     
     setLoading(true);
     try {
-      const updatedProfile = await profileService.updateProfile(profileData);
+      console.log('Updating profile for user:', user.id, 'with data:', profileData);
+      const updatedProfile = await profileService.updateProfile(profileData, user.id);
       if (updatedProfile) {
         setProfile(updatedProfile);
         console.log('Profile updated successfully:', updatedProfile);
         return true;
       }
+      console.error('Profile update returned null');
       return false;
     } catch (error) {
       console.error('Error updating profile:', error);
@@ -119,7 +124,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
             first_name: 'Admin',
             last_name: 'User',
             city: 'Admin City',
+            phone: null,
             class_level: 'Bac+',
+            bac_filiere: null,
             plan: 'enterprise',
             plan_expiry: null,
             created_at: new Date().toISOString(),
