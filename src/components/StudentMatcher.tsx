@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { schoolsData, School } from '../data/schools';
+import type { School } from '../types/school';
+import { useSchools } from '../hooks/useSchools';
 
 interface StudentProfile {
   bacType: string;
@@ -63,6 +64,7 @@ const FIELDS = [
 const StudentMatcher: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const { schools: schoolsData } = useSchools();
   const [studentProfile, setStudentProfile] = useState<StudentProfile>({
     bacType: '',
     grades: { math: 12, physics: 12, french: 12, philosophy: 12, speciality: 12 },

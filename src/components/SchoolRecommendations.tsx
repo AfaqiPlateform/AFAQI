@@ -1,6 +1,7 @@
 import React from 'react';
 import { MapPin, Users, Trophy, ArrowRight, Star, Clock } from 'lucide-react';
-import { schoolsData, School } from '../data/schools';
+import type { School } from '../types/school';
+import { useSchools } from '../hooks/useSchools';
 
 interface BacNotes {
   regional: number | null;
@@ -14,6 +15,8 @@ interface SchoolRecommendationsProps {
 }
 
 const SchoolRecommendations: React.FC<SchoolRecommendationsProps> = ({ notes }) => {
+  const { schools: schoolsData, loading } = useSchools();
+
   // Calculate eligible schools based on moyenne
   const getEligibleSchools = (moyenne: number): School[] => {
     return schoolsData.filter(school => {

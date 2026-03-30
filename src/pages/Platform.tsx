@@ -1,7 +1,8 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { schoolsData, School } from '../data/schools';
+import type { School } from '../types/school';
+import { useSchools } from '../hooks/useSchools';
 import { MapContainer, TileLayer, Marker, Popup, GeoJSON } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Range } from 'react-range';
@@ -57,6 +58,7 @@ const SEUIL_STEP = 0.5;
 
 const Platform: React.FC = () => {
   const { user } = useAuth();
+  const { schools: schoolsData, loading: schoolsLoading } = useSchools();
   const [selectedFiliere, setSelectedFiliere] = useState<string>('');
   const [selectedCity, setSelectedCity] = useState<string>('');
   const [selectedBacType, setSelectedBacType] = useState<string>('');
