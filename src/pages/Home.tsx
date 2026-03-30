@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useAuth } from '../contexts/AuthContext';
@@ -15,9 +15,6 @@ import logo6 from '../logos/logo6.jpg';
 import logo7 from '../logos/logo7.png';
 import { 
   MapPin, 
-  School, 
-  Users, 
-  Star, 
   CheckCircle, 
   ArrowRight, 
   Award,
@@ -29,9 +26,8 @@ import {
 
 const LandingPage = () => {
   const navigate = useNavigate();
-  const { user, profile } = useAuth();
+  const { user } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [currentStat, setCurrentStat] = useState(0);
   const [loadingStep, setLoadingStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [loadingPercent, setLoadingPercent] = useState(0);
@@ -42,13 +38,6 @@ const LandingPage = () => {
     "Préparation de l'intelligence artificielle...",
     "Configuration de la carte interactive...",
     "Finalisation...",
-  ];
-
-  const stats = [
-    { number: "90+", label: "Établissements", icon: School },
-    { number: "100+", label: "Étudiants", icon: Users },
-    { number: "12", label: "Villes", icon: MapPin },
-    { number: "98%", label: "Satisfaction", icon: Star }
   ];
 
   const features = [
@@ -134,14 +123,6 @@ const LandingPage = () => {
   const firstColumn = testimonials.slice(0, 3);
   const secondColumn = testimonials.slice(3, 6);
   const thirdColumn = testimonials.slice(6, 9);
-
-  // Animation des statistiques
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentStat((prev) => (prev + 1) % stats.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
 
   // Check for loading parameter after login
   useEffect(() => {
@@ -330,7 +311,7 @@ const LandingPage = () => {
                       au Maroc
                     </span>
                   </h1>
-                  <p className="text-lg text-gray-600 leading-relaxed max-w-lg">
+                  <p className="text-lg text-gray-500 leading-relaxed max-w-lg">
                     Découvrez et comparez plus de 90 établissements d'enseignement supérieur avec notre plateforme interactive et intelligente.
                   </p>
                 </div>
@@ -485,7 +466,7 @@ const LandingPage = () => {
                 ].map((item, index) => (
                   <div key={index} className="flex items-center">
                     <CheckCircle className="w-5 h-5 text-[#004235] mr-3 flex-shrink-0" />
-                    <span className="text-gray-600">{item}</span>
+                    <span className="text-gray-500">{item}</span>
                   </div>
                 ))}
               </div>
@@ -515,7 +496,6 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
-
 
       {/* Pricing Section */}
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
@@ -553,7 +533,7 @@ const LandingPage = () => {
                       ].map((feature, index) => (
                         <li key={index} className="flex items-start gap-3">
                           <CheckCircle className="w-5 h-5 text-[#004235] mt-0.5 flex-shrink-0" />
-                          <span className="text-gray-600">{feature}</span>
+                          <span className="text-gray-500">{feature}</span>
                         </li>
                       ))}
                     </ul>
@@ -586,7 +566,6 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
-
 
       {/* Testimonials Section */}
       <section id="testimonials" className="py-20 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">

@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Profile from './pages/Profile';
 import Simulateur from './pages/Simulateur';
+import AppShell from './components/AppShell';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import FullPageLoader from './components/FullPageLoader';
@@ -24,25 +25,13 @@ function AppContent() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/simulateur" element={<Simulateur />} />
-        
-        {/* Protected routes */}
-        <Route
-          path="/platform"
-          element={
-            <ProtectedRoute>
-              <Platform />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/profile/*"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
+
+        {/* Authenticated routes — wrapped in AppShell (sidebar + navbar) */}
+        <Route element={<ProtectedRoute><AppShell /></ProtectedRoute>}>
+          <Route path="/platform" element={<Platform />} />
+          <Route path="/simulateur" element={<Simulateur />} />
+          <Route path="/profile/*" element={<Profile />} />
+        </Route>
       </Routes>
     </div>
   );

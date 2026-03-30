@@ -4,7 +4,6 @@ import SimulatorCard from '../components/SimulatorCard';
 import ResultsDisplay from '../components/ResultsDisplay';
 import ScenarioHistory from '../components/ScenarioHistory';
 import SchoolRecommendations from '../components/SchoolRecommendations';
-import PlatformHeader from '../components/PlatformHeader';
 import FloatingToast from '../components/FloatingToast';
 
 interface BacNotes {
@@ -113,9 +112,7 @@ const Simulateur: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <PlatformHeader />
-      
+    <div className="flex-1">
       {/* Toast Notification */}
       <FloatingToast
         message={toast.message}
